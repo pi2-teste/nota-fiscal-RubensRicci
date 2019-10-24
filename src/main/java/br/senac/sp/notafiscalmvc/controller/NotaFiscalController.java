@@ -11,4 +11,14 @@ package br.senac.sp.notafiscalmvc.controller;
  */
 public class NotaFiscalController {
     
+    public static void main(String[] args) {
+    }
+    
+    public static boolean salvar(int numeroNota,double valorNota ){
+        System.out.println(numeroNota);
+        System.out.println(valorNota);
+        return false;   
+    }
+
+
 }
