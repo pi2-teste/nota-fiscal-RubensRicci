@@ -14,7 +14,14 @@ import java.util.ArrayList;
  */
 public class NotaFiscalDAO {
     private static ArrayList<NotaFiscal> listaNotas = new ArrayList<NotaFiscal>();
+     public static int conta() {
+        return listaNotas.size();
+        } 
     
+    public static NotaFiscal linha (int i) {
+        return listaNotas.get(i);
+    }
+
     public static boolean addNota(NotaFiscal nota) {
         
         listaNotas.add(nota);

@@ -7,6 +7,7 @@ package br.senac.sp.notafiscalmvc.view;
 
 import br.senac.sp.notafiscalmvc.controller.NotaFiscalController;
 import javax.swing.table.DefaultTableModel;
+import br.senac.sp.notafiscalmvc.controller.NotaFiscalTable;
 
 /**
  *
@@ -17,11 +18,21 @@ public class NotaFiscalForm extends javax.swing.JFrame {
     /**
      * Creates new form notaFIscalForm
      */
+    public NotaFiscalController controller;
+    public NotaFiscalTable table;
+
     public NotaFiscalForm() {
         initComponents();
+        controller = new NotaFiscalController();
+        table = new NotaFiscalTable();
     }
-    public static int numeroNota;
-    public static int valorNota;
+
+    public void refreshTable() {
+        tblnota.invalidate();
+        tblnota.repaint();  
+    }
+    //public static int numeroNota;
+    //public static int valorNota;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -125,14 +136,7 @@ public class NotaFiscalForm extends javax.swing.JFrame {
 
         jTabbedPane4.addTab("registrar nota", jPanel2);
 
-        tblnota.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Numnota", "valNota", "nome do produto "
-            }
-        ));
+        tblnota.setModel(new NotaFiscalTable());
         jScrollPane2.setViewportView(tblnota);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -175,18 +179,23 @@ public class NotaFiscalForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bttsalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttsalvarActionPerformed
-        
-        DefaultTableModel modelo = (DefaultTableModel) tblnota.getModel();
-        Object[] dados = {txtnumnota.getText(), txtvalor.getText(), txtproduto.getText()};
-        modelo.addRow(dados);
-        //System.out.println(txtnumnota.getText());
-        numeroNota = Integer.parseInt(txtnumnota.getText());
-        valorNota = Integer.parseInt(txtvalor.getText());
+        System.out.println("clicou no botao");
+        System.out.println("na view: nro nota " + txtnumnota.getText());
+        System.out.println("na view: valor nota " + txtvalor.getText());
+        System.out.println("na view: nome produto " + txtproduto.getText());
+        //NotaFiscalController controller = new NotaFiscalController();
 
+        double valNota;
+        int numNota;
+        valNota = Double.parseDouble(txtvalor.getText());
+        numNota = Integer.parseInt(txtnumnota.getText());
+        String nomeDoProduto = txtproduto.getText();
+        controller.salvar(numNota, valNota, nomeDoProduto);
+        refreshTable();
     }//GEN-LAST:event_bttsalvarActionPerformed
 
     private void bttsalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bttsalvarMouseClicked
-        
+
     }//GEN-LAST:event_bttsalvarMouseClicked
 
     /**
@@ -224,8 +233,7 @@ public class NotaFiscalForm extends javax.swing.JFrame {
             }
         });
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bttsalvar;
